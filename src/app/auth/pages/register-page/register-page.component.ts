@@ -18,26 +18,39 @@ export class RegisterPageComponent {
     private fb: FormBuilder,
     private validatorsService: ValidatorsService
   ) {}
-  public myForm: FormGroup = this.fb.group({
-    name: [
-      '',
-      [
-        Validators.required,
-        Validators.pattern(this.validatorsService.firstNameAndLastnamePattern),
+  public myForm: FormGroup = this.fb.group(
+    {
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            this.validatorsService.firstNameAndLastnamePattern
+          ),
+        ],
       ],
-    ],
-    email: [
-      '',
-      [
-        Validators.required,
-        Validators.pattern(this.validatorsService.emailPattern),
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(this.validatorsService.emailPattern),
+        ],
+        [new EmailValidatorService()],
       ],
-      [new EmailValidatorService()],
-    ],
-    username: ['', [Validators.required, this.validatorsService.cantBeStrider]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    password2: ['', [Validators.required]],
-  });
+      username: [
+        '',
+        [Validators.required, this.validatorsService.cantBeStrider],
+      ],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      password2: ['', [Validators.required]],
+    },
+    //Aqui lo hagi a nivel dle formulario
+    {
+      validators: [
+        this.validatorsService.isFielOneEqualFieldTwo('password', 'password2'),
+      ],
+    }
+  );
 
   public isValidField(field: string) {
     return this.validatorsService.isValidField(this.myForm, field);
