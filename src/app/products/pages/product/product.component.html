@@ -1,0 +1,7 @@
+<p>product works!</p>
+
+<button (click)="isVivo = !isVivo">Cambiar</button>
+
+<button (click)="increaseBy()">+1</button>
+
+<product-price *ngIf="isVivo" [price]="currentPrice" ></product-price>

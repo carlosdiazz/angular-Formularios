@@ -17,6 +17,11 @@ const routes: Routes = [
       import('./country/country.module').then((m) => m.CountryModule),
   },
   {
+    path: 'product',
+    loadChildren: () =>
+      import('./products/products.module').then((m) => m.ProductsModule),
+  },
+  {
     path: '**',
     redirectTo: 'reactive',
   },
